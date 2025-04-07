@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/debubel/sapi/api"
-	"github.com/debubel/sapi/pkg/middleware"
+	"github.com/dbubel/go-api-template/api"
+	"github.com/dbubel/go-api-template/pkg/middleware"
 	"github.com/dbubel/intake/v2"
 	"github.com/sirupsen/logrus"
 )
@@ -61,8 +61,9 @@ func (c *ServeCommand) Run(args []string) int {
 	// Create the API handler
 	apiHandler := api.NewAPIHandler(c.Log)
 
-	// Add a health endpoint
-	app.AddEndpoint(http.MethodGet, "/health", apiHandler.Health(upTime, c.Config.BuildDate, c.Config.BuildTag))
+	// Get all endpoints
+	endpoints := api.GetEndpoints(apiHandler, upTime, c.Config.BuildDate, c.Config.BuildTag)
+	app.AddEndpoints(endpoints)
 
 	// Print registered routes
 	routes := app.GetRoutes()
@@ -82,4 +83,5 @@ func (c *ServeCommand) Run(args []string) int {
 	})
 
 	return 0
-} 
+}
+

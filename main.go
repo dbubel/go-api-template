@@ -4,10 +4,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/debubel/sapi/cmd"
-	"github.com/debubel/sapi/config"
-	"github.com/debubel/sapi/pkg/cli"
+	"github.com/dbubel/go-api-template/cmd"
+	"github.com/dbubel/go-api-template/pkg/config"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/mitchellh/cli"
 	"github.com/sirupsen/logrus"
 )
 
@@ -42,7 +42,7 @@ func main() {
 	cfg.BuildDate = BUILD_DATE
 
 	// Initialize the CLI application
-	c := cli.NewCLI("sapi", BUILD_TAG)
+	c := cli.NewCLI("go-api-template", BUILD_TAG)
 	c.Args = os.Args[1:] // Use command line arguments excluding the program name
 
 	// Register available commands
@@ -71,4 +71,3 @@ func main() {
 
 	os.Exit(exitStatus)
 }
-
